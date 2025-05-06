@@ -11,7 +11,7 @@
       <Folder Include="Application\Commands\" />
       <Folder Include="Application\Queries\" />
       <Folder Include="Core\Events\" />
-      <Folder Include="Infrastructure\" />
+      <Folder Include="Infrastructure\Migrations" />
     </ItemGroup>
 
     <ItemGroup>

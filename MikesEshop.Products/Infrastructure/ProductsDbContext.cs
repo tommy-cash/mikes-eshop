@@ -3,7 +3,7 @@ using MikesEshop.Products.Core;
 
 namespace MikesEshop.Products.Infrastructure;
 
-public class ProductsDbContext : DbContext
+public class ProductsDbContext(DbContextOptions<ProductsDbContext> options) : DbContext(options)
 {
     public DbSet<Product> Products { get; set; }
 
