@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Api\" />
+      <Folder Include="Application\Commands\" />
+      <Folder Include="Application\Queries\" />
+      <Folder Include="Core\Events\" />
+      <Folder Include="Infrastructure\" />
+    </ItemGroup>
+
 </Project>
