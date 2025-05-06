@@ -4,6 +4,11 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>b123f11d-4ff5-42f0-b465-46f8bfa83a76</UserSecretsId>
     </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MikesEshop.Products\MikesEshop.Products.csproj" />
+    </ItemGroup>
 
 </Project>
