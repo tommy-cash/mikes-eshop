@@ -11,7 +11,16 @@
       <Folder Include="Application\Commands\" />
       <Folder Include="Application\Queries\" />
       <Folder Include="Core\Events\" />
-      <Folder Include="Infrastructure\" />
+      <Folder Include="Infrastructure\Migrations" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\MikesEshop.Shared\MikesEshop.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
     </ItemGroup>
 
 </Project>
