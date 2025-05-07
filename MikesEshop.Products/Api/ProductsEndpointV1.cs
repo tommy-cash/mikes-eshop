@@ -22,9 +22,9 @@ public class ProductsEndpointV1
     }
     
     [WolverinePatch("/v1/products/{id}/stock")]
-    public static async Task<UpdateProductStockResponse> UpdateProductStock(UpdateProductStockRequest request, IMessageBus bus)
+    public static async Task<UpdateProductStockResponse> UpdateProductStock(Guid id, UpdateProductStockRequest request, IMessageBus bus)
     {
-        var command = request.Adapt<UpdateProductStockCommand>();
+        var command = new UpdateProductStockCommand(id, request.NewQuantity);
         var productStockChangedEvent = await bus.InvokeAsync<ProductStockChanged>(command);
 
         return productStockChangedEvent.Adapt<UpdateProductStockResponse>();
