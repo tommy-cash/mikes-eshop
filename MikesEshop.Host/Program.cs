@@ -1,6 +1,9 @@
 using Ardalis.GuardClauses;
+using Microsoft.EntityFrameworkCore;
 using MikesEshop.Host;
 using MikesEshop.Products;
+using MikesEshop.Products.Infrastructure;
+using MikesEshop.Products.Infrastructure.Seeds;
 using Wolverine.Http;
 using Wolverine.Http.FluentValidation;
 
@@ -36,5 +39,17 @@ app.MapWolverineEndpoints(opts =>
 {
     opts.UseFluentValidationProblemDetailMiddleware();
 });
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ProductsDbContext>();
+    await dbContext.Database.MigrateAsync();
+    
+    if (app.Environment.IsDevelopment())
+    {
+        // TODO: separate this into separate runnable project
+        await ProductSeeder.EnsureSeededAsync(dbContext);
+    }
+}
 
 app.Run();
