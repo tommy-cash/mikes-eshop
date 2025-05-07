@@ -10,4 +10,8 @@
       <PackageReference Include="Ardalis.GuardClauses" Version="5.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Application\" />
+    </ItemGroup>
+
 </Project>

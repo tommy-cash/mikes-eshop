@@ -1,7 +1,7 @@
 using Mapster;
 using MikesEshop.Products.Core;
 using MikesEshop.Products.Core.Events;
-using MikesEshop.Products.Infrastructure;
+using MikesEshop.Shared.Application.Services;
 
 namespace MikesEshop.Products.Application.Commands;
 
@@ -9,13 +9,13 @@ public class CreateProductCommandHandler
 {
     public static async Task<ProductCreated> Handle(
         CreateProductCommand command,
-        ProductsDbContext dbContext,
+        IRepository<Product> repository,
         CancellationToken cancellationToken)
     {
         var product = command.Adapt<Product>();
         
-        dbContext.Products.Add(product);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        await repository.AddAsync(product, cancellationToken);
+        await repository.CommitAsync(cancellationToken);
 
         return product.Adapt<ProductCreated>();
     }
