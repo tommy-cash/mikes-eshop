@@ -12,9 +12,9 @@ public record Dimensions
 
     public Dimensions(decimal width, decimal height, decimal depth)
     {
-        Guard.Against.NegativeOrZero(width, nameof(width), "Product width cannot be negative");
-        Guard.Against.NegativeOrZero(height, nameof(height), "Product height cannot be negative");
-        Guard.Against.NegativeOrZero(depth, nameof(depth), "Product depth cannot be negative");
+        Guard.Against.NegativeOrZero(width, nameof(width), "Product width cannot be negative or zero");
+        Guard.Against.NegativeOrZero(height, nameof(height), "Product height cannot be negative or zero");
+        Guard.Against.NegativeOrZero(depth, nameof(depth), "Product depth cannot be negative or zero");
         
         Width = width;
         Height = height;
