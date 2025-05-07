@@ -10,9 +10,9 @@ using Wolverine.Http;
 
 namespace MikesEshop.Products.Api;
 
-public class ProductsEndpoint
+public class ProductsEndpointV1
 {
-    [WolverinePost("/products")]
+    [WolverinePost("/v1/products")]
     public static async Task<CreateProductResponse> CreateProduct(CreateProductRequest request, IMessageBus bus)
     {
         var command = request.Adapt<CreateProductCommand>();
@@ -21,7 +21,7 @@ public class ProductsEndpoint
         return productCreatedEvent.Adapt<CreateProductResponse>();
     }
     
-    [WolverinePatch("/products/{id}/stock")]
+    [WolverinePatch("/v1/products/{id}/stock")]
     public static async Task<UpdateProductStockResponse> UpdateProductStock(UpdateProductStockRequest request, IMessageBus bus)
     {
         var command = request.Adapt<UpdateProductStockCommand>();
@@ -30,7 +30,7 @@ public class ProductsEndpoint
         return productStockChangedEvent.Adapt<UpdateProductStockResponse>();
     }
     
-    [WolverineGet("/products")]
+    [WolverineGet("/v1/products")]
     public static async Task<IReadOnlyList<Product>> GetAllStockedProducts(IMessageBus bus)
     {
         var query = new GetAllStockedProductsQuery();
@@ -39,7 +39,7 @@ public class ProductsEndpoint
         return getAllProductsQueryResponse.Products;
     }
     
-    [WolverineGet("/products/{id}")]
+    [WolverineGet("/v1/products/{id}")]
     public static async Task<Product?> GetProductById(Guid id, IMessageBus bus)
     {
         var query = new GetProductByIdQuery(id);
