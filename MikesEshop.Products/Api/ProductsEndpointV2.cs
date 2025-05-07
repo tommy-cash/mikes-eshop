@@ -1,4 +1,5 @@
 using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using MikesEshop.Products.Api.Requests;
 using MikesEshop.Products.Api.Responses;
 using MikesEshop.Products.Application.Commands;
@@ -22,7 +23,9 @@ public class ProductsEndpointV2
     }
     
     [WolverinePatch("/v2/products/{id}/stock")]
-    public static async Task<UpdateProductStockResponse> UpdateProductStock(UpdateProductStockRequest request, IMessageBus bus)
+    public static async Task<UpdateProductStockResponse> UpdateProductStock(
+        UpdateProductStockRequest request,
+        IMessageBus bus)
     {
         var command = request.Adapt<UpdateProductStockCommand>();
         var productStockChangedEvent = await bus.InvokeAsync<ProductStockChanged>(command);
@@ -31,12 +34,15 @@ public class ProductsEndpointV2
     }
     
     [WolverineGet("/v2/products")]
-    public static async Task<IReadOnlyList<Product>> GetAllStockedProducts(IMessageBus bus)
+    public static async Task<IReadOnlyList<Product>> GetAllStockedProducts(
+        IMessageBus bus,
+        [FromQuery] int page,
+        [FromQuery] int pageSize)
     {
-        var query = new GetAllStockedProductsQuery();
-        var getAllProductsQueryResponse = await bus.InvokeAsync<GetAllStockedProductsQueryResponse>(query);
+        var query = new Application.Queries.GetAllStockedProductsPagedQuery(page, pageSize);
+        var getAllProductsPagedQueryResponse = await bus.InvokeAsync<GetAllStockedProductsPagedQueryResponse>(query);
 
-        return getAllProductsQueryResponse.Products;
+        return getAllProductsPagedQueryResponse.Products;
     }
     
     [WolverineGet("/v2/products/{id}")]
