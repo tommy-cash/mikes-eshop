@@ -4,7 +4,7 @@ using MikesEshop.Shared.Core;
 
 namespace MikesEshop.Products.Core;
 
-public class Product : EntityBase
+public class Product : AggregateRoot
 {
     public string Name { get; private set; }
     public string ImageUrl { get; private set; }
@@ -16,7 +16,7 @@ public class Product : EntityBase
     
     private Product() { }
      
-    public Product(Guid id,
+    public Product(
         string name,
         string imageUrl,
         string? description = null,
@@ -24,7 +24,6 @@ public class Product : EntityBase
         Price? price = null,
         Dimensions? dimensions = null)
     {
-        Id = id;
         Name = name;
         ImageUrl = imageUrl;
         Description = description;

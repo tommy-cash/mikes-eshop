@@ -2,7 +2,7 @@ using Ardalis.GuardClauses;
 using Mapster;
 using MikesEshop.Products.Core;
 using MikesEshop.Products.Core.Events;
-using MikesEshop.Products.Infrastructure;
+using MikesEshop.Shared.Application.Services;
 
 namespace MikesEshop.Products.Application.Commands;
 
@@ -10,10 +10,10 @@ public class UpdateProductStockCommandHandler
 {
     public static async Task<Product> LoadAsync(
         UpdateProductStockCommand command,
-        ProductsDbContext dbContext,
+        IRepository<Product> repository,
         CancellationToken cancellationToken)
     {
-        var product = await dbContext.Products.FindAsync(command.ProductId, cancellationToken);
+        var product = await repository.GetByIdAsync(command.ProductId, cancellationToken);
         Guard.Against.Null(product, "Product not found");
 
         return product;
@@ -22,13 +22,13 @@ public class UpdateProductStockCommandHandler
     public static async Task<ProductStockChanged> Handle(
         UpdateProductStockCommand command,
         Product product,
-        ProductsDbContext dbContext,
+        IRepository<Product> repository,
         CancellationToken cancellationToken)
     {
         product.UpdateStock(command.NewQuantity);
 
-        dbContext.Update(product);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        repository.Update(product);
+        await repository.CommitAsync(cancellationToken);
         
         return product.Adapt<ProductStockChanged>();
     }
