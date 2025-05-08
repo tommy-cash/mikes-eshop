@@ -1,0 +1,21 @@
+services:
+  mikeseshophost:
+    build:
+      context: .
+      dockerfile: MikesEshop.Host/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__EshopProductsDb: Server=mikeseshopdb,1433;Database=Eshop.Products;User Id=sa;Password=Alza.dev123;TrustServerCertificate=True;
+    depends_on:
+      - mikeseshopdb
+  
+  mikeseshopdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: Alza.dev123
