@@ -3,7 +3,10 @@ using MikesEshop.Shared.Application.Services;
 
 namespace MikesEshop.Products.Application.Queries;
 
-public class GetAllStockedProductsPagedQueryHandler
+public record GetAllStockedProductsPagedQuery(int Page, int PageSize);
+public record GetAllStockedProductsPagedQueryResponse(List<Product> Products);
+
+public static class GetAllStockedProductsPagedQueryHandler
 {
     public static async Task<GetAllStockedProductsPagedQueryResponse> Handle(
         GetAllStockedProductsPagedQuery query,

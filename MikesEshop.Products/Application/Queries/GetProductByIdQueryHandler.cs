@@ -3,7 +3,10 @@ using MikesEshop.Shared.Application.Services;
 
 namespace MikesEshop.Products.Application.Queries;
 
-public class GetProductByIdQueryHandler
+public record GetProductByIdQuery(Guid ProductId);
+public record GetProductByIdQueryResponse(Product? Product);
+
+public static class GetProductByIdQueryHandler
 {
     public static async Task<GetProductByIdQueryResponse> Handle(
         GetProductByIdQuery query,
