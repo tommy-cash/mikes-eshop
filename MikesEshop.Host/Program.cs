@@ -1,6 +1,7 @@
 using Ardalis.GuardClauses;
 using Microsoft.EntityFrameworkCore;
 using MikesEshop.Host;
+using MikesEshop.Host.Middlewares;
 using MikesEshop.Products;
 using MikesEshop.Products.Infrastructure;
 using MikesEshop.Products.Infrastructure.Seeds;
@@ -24,6 +25,8 @@ builder.Services.AddProducts(eshopProductsDbConnectionString);
 builder.Host.UseProjects(assemblies);
 
 var app = builder.Build();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
