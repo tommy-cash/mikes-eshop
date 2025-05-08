@@ -1,12 +1,14 @@
 using Ardalis.GuardClauses;
-using Mapster;
+using MikesEshop.Products.Application.Mappers;
 using MikesEshop.Products.Core;
 using MikesEshop.Products.Core.Events;
 using MikesEshop.Shared.Application.Services;
 
 namespace MikesEshop.Products.Application.Commands;
 
-public class UpdateProductStockCommandHandler
+public record UpdateProductStockCommand(Guid ProductId, int NewQuantity);
+
+public static class UpdateProductStockCommandHandler
 {
     public static async Task<Product> LoadAsync(
         UpdateProductStockCommand command,
@@ -29,7 +31,7 @@ public class UpdateProductStockCommandHandler
 
         repository.Update(product);
         await repository.CommitAsync(cancellationToken);
-        
-        return product.Adapt<ProductStockChanged>();
+
+        return product.MapToProductStockChanged();
     }
 }

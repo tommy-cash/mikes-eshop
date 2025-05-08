@@ -1,3 +1,3 @@
 namespace MikesEshop.Products.Core.Events;
 
-public record ProductStockChanged(Guid Id, string Name, string ImageUrl, int Quantity);
+public record ProductStockChanged(Guid Id, string Name, string ImageUrl, int StockedQuantity);
