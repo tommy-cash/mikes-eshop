@@ -24,6 +24,11 @@ public class Product : AggregateRoot
         Price? price = null,
         Dimensions? dimensions = null)
     {
+        if (stockedQuantity.HasValue)
+        {
+            Guard.Against.Negative(stockedQuantity.Value, nameof(stockedQuantity), "Quantity of stock cannot be negative");
+        }
+
         Name = name;
         ImageUrl = imageUrl;
         Description = description;
