@@ -23,6 +23,8 @@ MikesEshop is built for scalability and future microservices migration, using:
 - or just Docker and Docker Compose ;)
 
 ## Running the project
+Project has been deployed to Azure along with database and is available on the following URL: [https://mikes-eshop-api-g3dab9hzhzd0cnen.germanywestcentral-01.azurewebsites.net/swagger/index.html](https://mikes-eshop-api-g3dab9hzhzd0cnen.germanywestcentral-01.azurewebsites.net/swagger/index.html)
+
 ### Running the project manually with IDE
 Open the solution in your IDE and add database connection string to user secrets in this format that is also defined in `appsettings.json`:
 ```json
